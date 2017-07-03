@@ -1,7 +1,7 @@
 {
   "name": "BSNA",
-  "version": "0.0.0",
-  "description": "Hello Expo!",
+  "version": "0.0.1",
+  "description": "Information about the Brahman Samaj of North America (BSNA)",
   "author": null,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {

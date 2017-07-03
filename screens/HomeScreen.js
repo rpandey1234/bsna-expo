@@ -62,62 +62,37 @@ export default class HomeScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}>
 
           <Loading loading={this.state.loading}/>
-          {this.state.events.map(function(event, index) {
-              return <Card key={index} title={event.title} location={event.location} date={event.date}/>
-          })}
-
           <View style={styles.welcomeContainer}>
             <Image
-              source={require('../assets/images/expo-wordmark.png')}
+              source={require('../assets/icons/app-icon.png')}
               style={styles.welcomeImage}
             />
           </View>
 
           <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
 
             <Text style={styles.getStartedText}>
-              Get started by opening
-            </Text>
-
-            <View
-              style={[
-                styles.codeHighlightContainer,
-                styles.homeScreenFilename,
-              ]}>
-              <MonoText style={styles.codeHighlightText}>
-                screens/HomeScreen.js
-              </MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              This will be the BSNA app.
+              Brahman Samaj of North America (BSNA) is the largest Brahman organization with the sole objective of
+              bringing Brahmans together and helping them seek cultural and social identity.
             </Text>
           </View>
 
           <View style={styles.helpContainer}>
-            <TouchableOpacity
-              onPress={this._handleHelpPress}
-              style={styles.helpLink}>
+            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
               <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
+                Brahma Vani
               </Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
+          <Text style={styles.getStartedText}>
+            Upcoming Events
           </Text>
+          {this.state.events.map(function(event, index) {
+            return <Card key={index} title={event.title} location={event.location} date={event.date}/>
+          })}
 
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -153,7 +128,7 @@ export default class HomeScreen extends React.Component {
 
   _handleHelpPress = () => {
     Linking.openURL(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+      'http://www.bsnaconvention.info/BV-BJ_July_2016.pdf',
     );
   };
 }
@@ -169,6 +144,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     borderWidth: 1,
     borderColor: 'lightgrey',
+    borderRadius: 6,
     ...Platform.select({
         ios: {
           shadowColor: 'black',
@@ -177,7 +153,7 @@ const styles = StyleSheet.create({
           shadowRadius: 3,
         },
         android: {
-          elevation: 20,
+          elevation: 10,
         },
       })
   },
@@ -197,11 +173,11 @@ const styles = StyleSheet.create({
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   welcomeImage: {
     width: 140,
-    height: 38,
+    height: 60,
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,

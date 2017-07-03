@@ -1,12 +1,12 @@
 export default {
     events: [
-        { "title": "BSNA Convention",
-            "location": "Auburn Hills, MI",
-            "date": "July 28, 2017"
+        { "title": "Michigan chapter picnic",
+            "location": "Rochester, MI",
+            "date": "July 8, 2017"
         },
-        { "title": "Picnic 2",
-            "location": "San Francisco, CA",
-            "date": "August 4, 2017"
+        { "title": "22nd Annual BSNA Convention",
+            "location": "Auburn Hills, MI",
+            "date": "July 28 - 30, 2017"
         }
     ]
 }
