@@ -77,15 +77,7 @@ export default class HomeScreen extends React.Component {
             </Text>
           </View>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Brahma Vani
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.getStartedText}>
+          <Text style={[styles.getStartedText, styles.bold]}>
             Upcoming Events
           </Text>
           {this.state.events.map(function(event, index) {
@@ -123,12 +115,6 @@ export default class HomeScreen extends React.Component {
   _handleLearnMorePress = () => {
     Linking.openURL(
       'https://docs.expo.io/versions/latest/guides/development-mode'
-    );
-  };
-
-  _handleHelpPress = () => {
-    Linking.openURL(
-      'http://www.bsnaconvention.info/BV-BJ_July_2016.pdf',
     );
   };
 }
@@ -209,6 +195,10 @@ const styles = StyleSheet.create({
     color: 'rgba(96,100,109, 1)',
     lineHeight: 23,
     textAlign: 'center',
+    marginVertical: 10,
+  },
+  bold: {
+    fontWeight: 'bold',
   },
   tabBarInfoContainer: {
     position: 'absolute',
