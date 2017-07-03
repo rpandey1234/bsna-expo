@@ -11,19 +11,6 @@ import {
 } from 'react-native';
 import Events from '../constants/Events.js';
 import { MonoText } from '../components/StyledText';
-import * as firebase from 'firebase';
-
-
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBMVxKxtVKak2EjrU1JRTKpGw22wcV9n5g",
-  authDomain: "bsna-convension.firebaseapp.com",
-  databaseURL: "https://bsna-convension.firebaseio.com",
-  projectId: "bsna-convension",
-  storageBucket: "",
-  messagingSenderId: "840942300884"
-};
-firebase.initializeApp(config);
 
 export class Card extends React.Component {
   render() {
@@ -61,12 +48,9 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     console.log("should make network call for data");
-    firebase.database().ref('/events').on('value', (snapshot) => {
-      var events = snapshot.val();
-      this.setState({
-        loading: false,
-        events: events,
-      });
+    this.setState({
+      loading: false,
+      events: Events.events,
     });
   }
 
@@ -184,7 +168,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'lightgrey'
+    borderColor: 'lightgrey',
+    ...Platform.select({
+        ios: {
+          shadowColor: 'black',
+          shadowOffset: { height: -3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3,
+        },
+        android: {
+          elevation: 20,
+        },
+      })
   },
   container: {
     flex: 1,
