@@ -9,13 +9,66 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import Events from '../constants/Events.js';
 import { MonoText } from '../components/StyledText';
+import * as firebase from 'firebase';
+
+
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBMVxKxtVKak2EjrU1JRTKpGw22wcV9n5g",
+  authDomain: "bsna-convension.firebaseapp.com",
+  databaseURL: "https://bsna-convension.firebaseio.com",
+  projectId: "bsna-convension",
+  storageBucket: "",
+  messagingSenderId: "840942300884"
+};
+firebase.initializeApp(config);
+
+export class Card extends React.Component {
+  render() {
+    return (
+        <View style={styles.card}>
+          <Text>{this.props.title}</Text>
+          <Text>{this.props.location}</Text>
+          <Text>{this.props.date}</Text>
+        </View>
+    )
+  }
+}
+
+export class Loading extends React.Component {
+  render() {
+    return (<View style={styles.centerContent}>
+      {this.props.loading ? <Image source={require('../assets/images/loading.gif')} style={styles.loadingImage}/> :
+          undefined}
+    </View>);
+  }
+}
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  constructor() {
+    super();
+    this.state =  {
+      events: [],
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    console.log("should make network call for data");
+    firebase.database().ref('/events').on('value', (snapshot) => {
+      var events = snapshot.val();
+      this.setState({
+        loading: false,
+        events: events,
+      });
+    });
+  }
 
   render() {
     return (
@@ -23,6 +76,11 @@ export default class HomeScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
+
+          <Loading loading={this.state.loading}/>
+          {this.state.events.map(function(event, index) {
+              return <Card key={index} title={event.title} location={event.location} date={event.date}/>
+          })}
 
           <View style={styles.welcomeContainer}>
             <Image
@@ -49,7 +107,7 @@ export default class HomeScreen extends React.Component {
             </View>
 
             <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
+              This will be the BSNA app.
             </Text>
           </View>
 
@@ -117,6 +175,17 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    backgroundColor: 'skyblue',
+    marginBottom: 10,
+    marginTop: 10,
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'lightgrey'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -128,7 +197,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   contentContainer: {
-    paddingTop: 80,
+    paddingTop: 20,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -141,6 +210,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 3,
     marginLeft: -10,
+  },
+  centerContent: {
+    alignItems: 'center',
+  },
+  loadingImage: {
+    resizeMode: 'contain',
+    alignItems: 'center',
   },
   getStartedContainer: {
     alignItems: 'center',
