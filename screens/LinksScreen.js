@@ -55,7 +55,7 @@ export default class LinksScreen extends React.Component {
   };
 
   _onDonate = () => {
-    Linking.openURL("https://www.paypal.com/donate/?token=AgqbNZ3NSDpm5nZ97HA23xP5iztjyi9Gyo3G1e0A8gWXV-Kj_cfRB8jYmBmjCaK6Z1Wd2G&country.x=US&locale.x=US");
+    Linking.openURL("https://www.paypal.com/donate/?token=C2TmUknd_BH1OlSHaETcHczLhSuxGBEd5-HikU2JJof2LozaIE1NxQEnpdSCv6IH_F22om&country.x=US&locale.x=US");
   }
 }
 

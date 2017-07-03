@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bsna",
+    "name": "BSNA",
     "description": "Brahman Samaj of North America",
     "slug": "bsna",
     "privacy": "public",
@@ -24,7 +24,8 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.rkpandey.stanford"
+      "package": "com.rkpandey.stanford",
+      "versionCode": 2
     }
   }
 }
