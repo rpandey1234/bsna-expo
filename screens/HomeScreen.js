@@ -19,6 +19,7 @@ export class Card extends React.Component {
           <Text>{this.props.title}</Text>
           <Text>{this.props.location}</Text>
           <Text>{this.props.date}</Text>
+          {this.props.link ? <Text style={styles.helpLinkText} onPress={() => Linking.openURL(this.props.link)}>More info</Text> : undefined }
         </View>
     )
   }
@@ -81,7 +82,7 @@ export default class HomeScreen extends React.Component {
             Upcoming Events
           </Text>
           {this.state.events.map(function(event, index) {
-            return <Card key={index} title={event.title} location={event.location} date={event.date}/>
+            return <Card key={index} title={event.title} location={event.location} date={event.date} link={event.link}/>
           })}
 
         </ScrollView>

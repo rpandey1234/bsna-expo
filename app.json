@@ -21,7 +21,8 @@
       "assetExts": ["ttf"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rkpandey.stanford"
     },
     "android": {
       "package": "com.rkpandey.stanford",
