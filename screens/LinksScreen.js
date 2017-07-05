@@ -1,13 +1,13 @@
 import React from 'react';
-import { Button, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { Button, Dimensions, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View, WebView } from 'react-native';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
-    title: 'Documents and Links',
+    title: 'Documents and Links'
   };
 
   render() {
+    const uri = 'http://www.bsna.org/paypal_payment_sponsorship_donation_2.html';
     return (
       <ScrollView style={styles.container}>
         <View style={styles.containerView}>
@@ -42,8 +42,18 @@ export default class LinksScreen extends React.Component {
           </Text>
 
 
-          <View style={{marginVertical: 15}}>
-            <Button onPress={this._onDonate} title="Donate to BSNA" color="#841584" />
+          <View style={{marginVertical: 15, paddingVertical: 10, borderTopWidth: StyleSheet.hairlineWidth}}>
+            <Text style={{fontWeight: 'bold', marginBottom: 10}}>Make a voluntary donation to BSNA with Paypal:</Text>
+            <WebView
+                ref={(ref) => { this.webview = ref; }}
+                source={{uri}}
+                style={{width: Dimensions.get('window').width, height: 200}}
+                onNavigationStateChange={(event) => {
+                  if (event.url !== uri) {
+                    Linking.openURL(event.url);
+                  }
+                }}
+                />
           </View>
         </View>
       </ScrollView>
@@ -53,10 +63,6 @@ export default class LinksScreen extends React.Component {
   _handleLink = (link) => {
     Linking.openURL(link);
   };
-
-  _onDonate = () => {
-    Linking.openURL("https://www.paypal.com/donate/?token=C2TmUknd_BH1OlSHaETcHczLhSuxGBEd5-HikU2JJof2LozaIE1NxQEnpdSCv6IH_F22om&country.x=US&locale.x=US");
-  }
 }
 
 const styles = StyleSheet.create({
