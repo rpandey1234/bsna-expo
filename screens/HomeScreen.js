@@ -6,7 +6,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import Events from '../constants/Events.js';
@@ -93,7 +92,7 @@ export default class HomeScreen extends React.Component {
   _maybeRenderDevelopmentModeWarning() {
     if (__DEV__) {
       const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
+        <Text onPress={() => Linking.openURL('https://docs.expo.io/versions/latest/guides/development-mode')} style={styles.helpLinkText}>
           Learn more
         </Text>
       );
@@ -112,12 +111,6 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
-
-  _handleLearnMorePress = () => {
-    Linking.openURL(
-      'https://docs.expo.io/versions/latest/guides/development-mode'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
