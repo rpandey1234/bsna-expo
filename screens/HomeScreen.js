@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Dimensions,
   Image,
   Linking,
   Platform,
@@ -47,7 +48,6 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log("should make network call for data");
     this.setState({
       loading: false,
       events: Events.events,
@@ -83,7 +83,13 @@ export default class HomeScreen extends React.Component {
           {this.state.events.map(function(event, index) {
             return <Card key={index} title={event.title} location={event.location} date={event.date} link={event.link}/>
           })}
-
+          <View
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: 'lightgray',
+                width: Dimensions.get('window').width,
+              }}/>
+              />
         </ScrollView>
       </View>
     );
