@@ -38,7 +38,7 @@ export default TabNavigator(
             iconName = 'book';
             break;
           case 'Settings':
-            iconName = 'cog';
+            iconName = 'user';
         }
         return (
           <FontAwesome
