@@ -1,7 +1,17 @@
+import * as firebase from 'firebase';
 import React from 'react';
-import { Button, Dimensions, Image, Linking, Platform, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Alert, Button, Dimensions, Image, Linking, Platform, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import Events from '../constants/Events.js';
 import { MonoText } from '../components/StyledText';
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCODCtnwR3dTCgrSyYbu0gsapmS48In0h4",
+  authDomain: "youtubeann.firebaseapp.com",
+  databaseURL: "https://youtubeann.firebaseio.com",
+  storageBucket: ""
+};
+firebase.initializeApp(firebaseConfig);
 
 export class Loading extends React.Component {
   render() {
@@ -93,10 +103,12 @@ export default class HomeScreen extends React.Component {
   }
 
   _handleButtonSubmit = () => {
-    console.log("buitton submit");
-    if (!this.state.email) {
-      console.log("please add an email address before submitting");
-    }
+    firebase.database().ref('/messages').push({email: this.state.email, message: this.state.message, date: "" + new Date()});
+    Alert.alert('Thank you!', "Thanks for your message. We'll be in touch soon if you requested a response.", [{text: 'OK'}]);
+    this.setState({
+      email: '',
+      message: ''
+    });
   };
 
   _validateEmail = (email) => {
