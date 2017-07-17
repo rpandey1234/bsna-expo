@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Dimensions,
-  Image,
-  Linking,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { Button, Dimensions, Image, Linking, Platform, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import Events from '../constants/Events.js';
 import { MonoText } from '../components/StyledText';
 
@@ -41,6 +29,8 @@ export default class HomeScreen extends React.Component {
     this.setState({
       loading: false,
       events: Events.events,
+      email: "",
+      message: ""
     });
   }
 
@@ -66,6 +56,27 @@ export default class HomeScreen extends React.Component {
             </Text>
           </View>
 
+          <View
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: 'lightgray',
+                width: Dimensions.get('window').width,
+                marginTop: 16
+              }}
+              />
+          <View style={styles.inputView}>
+            <Text>Sign up for information about BSNA or leave a comment.</Text>
+            <TextInput style={styles.inputField} keyboardType={'email-address'} placeholder={'Email'} value={this.state.email} onChangeText={(text) => this.setState({email: text})} autoCapitalize={'none'}/>
+            <TextInput style={styles.inputField} multiline={true} numberOfLines={3} placeholder={'Message'} value={this.state.message} onChangeText={(text) => this.setState({message: text})}/>
+            <Button title={"Submit"} onPress={this._handleButtonSubmit} disabled={this.state.email == undefined || this.state.email.length < 4 || !this._validateEmail(this.state.email)} />
+          </View>
+          <View
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: 'lightgray',
+                width: Dimensions.get('window').width,
+              }}
+              />
           {this.state.events.map(function(event, index) {
             return <View key={index} style={styles.card}>
               <Text style={styles.bold}>{event.title}</Text>
@@ -75,50 +86,40 @@ export default class HomeScreen extends React.Component {
               <Text style={styles.details}>{event.details}</Text>
             </View>;
           })}
-          <View
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: 'lightgray',
-                width: Dimensions.get('window').width,
-                marginTop: 10
-              }}
-              />
+
         </ScrollView>
       </View>
     );
   }
+
+  _handleButtonSubmit = () => {
+    console.log("buitton submit");
+    if (!this.state.email) {
+      console.log("please add an email address before submitting");
+    }
+  };
+
+  _validateEmail = (email) => {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: 'oldlace',
-    marginBottom: 10,
-    marginTop: 10,
-    paddingBottom: 10,
-    paddingTop: 10,
-    paddingHorizontal: 10,
-    marginHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-    borderRadius: 6,
-    ...Platform.select({
-        ios: {
-          shadowColor: 'black',
-          shadowOffset: { height: -3 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3,
-        },
-        android: {
-          elevation: 10,
-        },
-      })
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 20,
+  },
+  inputView: {
+    marginHorizontal: 30,
+    marginVertical: 20,
+  },
+  inputField: {
+    height: 50,
+    marginVertical: 10,
   },
   welcomeContainer: {
     alignItems: 'center',
@@ -156,4 +157,26 @@ const styles = StyleSheet.create({
   details: {
     marginTop: 15,
   },
+  card: {
+    backgroundColor: 'oldlace',
+    marginVertical: 40,
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingHorizontal: 10,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+    borderRadius: 6,
+    ...Platform.select({
+        ios: {
+          shadowColor: 'black',
+          shadowOffset: { height: -3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3,
+        },
+        android: {
+          elevation: 10,
+        },
+      })
+  }
 });
