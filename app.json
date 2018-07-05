@@ -4,7 +4,7 @@
     "description": "Brahman Samaj of North America",
     "slug": "bsna",
     "privacy": "public",
-    "sdkVersion": "18.0.0",
+    "sdkVersion": "24.0.0",
     "version": "1.0.2",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
